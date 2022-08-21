@@ -35,35 +35,54 @@ public class TextUIDlg : MonoBehaviour
     }
     public void OnClick_Select1()
     {
-        int connectedId = TextMgr.Inst.m_assetTexts[m_currentid].connectedid;
-        if (TextMgr.Inst.m_assetTexts[m_currentid - 1].category==3)
+        if (TextMgr.Inst.m_assetTexts[m_currentid - 1].selection == 3)
         {
-            m_endingScript.PrintEndingCredit(1);
-            //비활성화
+            int connectedId = TextMgr.Inst.m_assetTexts[m_currentid].connectedid;
+            m_currentid = m_currentid + connectedId +1;
         }
         else
         {
-            m_currentid = m_currentid + connectedId + 1;
+            int connectedId = TextMgr.Inst.m_assetTexts[m_currentid].connectedid;
+            if (TextMgr.Inst.m_assetTexts[m_currentid - 1].category==3)
+            {
+                m_endingScript.PrintEndingCredit(1);
+            }
+            else
+            {
+            m_currentid = m_currentid + connectedId+1;
             DescTextChange();
+            }
+        
         }
+
+
 
     }
     public void OnClick_Select2()
     {
-        int connectedId = TextMgr.Inst.m_assetTexts[m_currentid +1].connectedid;
-        if(m_currentid == 3)
+        
+        if (TextMgr.Inst.m_assetTexts[m_currentid - 1].selection == 3)
         {
-            Mapae();
+            int connectedId = TextMgr.Inst.m_assetTexts[m_currentid + 2].connectedid;
+
+            m_currentid = m_currentid + connectedId + 3;
         }
-        if (TextMgr.Inst.m_assetTexts[m_currentid - 1].category == 3)
-        {
-            m_endingScript.PrintEndingCredit(2);
-            //비활성화
-        }
-        else
-        {
-            m_currentid = m_currentid + connectedId + 1;
-            DescTextChange();
+        else {
+            int connectedId = TextMgr.Inst.m_assetTexts[m_currentid + 1].connectedid;
+            if (m_currentid == 3)
+            {
+                Mapae();
+            }
+            if (TextMgr.Inst.m_assetTexts[m_currentid - 1].category == 3)
+            {
+                m_endingScript.PrintEndingCredit(2);
+                //비활성화
+            }
+            else
+            {
+                m_currentid = m_currentid + connectedId + 2;
+                DescTextChange();
+            }
         }
     }
     public void Mapae()
@@ -73,8 +92,17 @@ public class TextUIDlg : MonoBehaviour
 
     public void OnClick_Single()
     {
-        int connectedId = TextMgr.Inst.m_assetTexts[m_currentid - 1].connectedid;
-        m_currentid = m_currentid + connectedId;
+        
+        if(TextMgr.Inst.m_assetTexts[m_currentid-1].selection == 3)
+        {
+            int connectedId = TextMgr.Inst.m_assetTexts[m_currentid + 1].connectedid;
+            m_currentid = m_currentid + connectedId + 2;
+        }
+        else
+        {
+            int connectedId = TextMgr.Inst.m_assetTexts[m_currentid - 1].connectedid;
+            m_currentid = m_currentid + connectedId;
+        }
         DescTextChange();
     }
     public void DescTextChange()
@@ -88,7 +116,6 @@ public class TextUIDlg : MonoBehaviour
             m_selectionTextSingle.gameObject.SetActive(false);
             m_selectionText_1.gameObject.SetActive(true);
             m_selectionText_2.gameObject.SetActive(true);
-            m_selectionText_1.text = TextMgr.Inst.m_assetTexts[m_currentid].desc;
             m_selectionText_2.text = TextMgr.Inst.m_assetTexts[m_currentid + 1].desc;
             GameMgr.Inst.ginfo.m_lastSelection = m_currentid;
         }
@@ -102,7 +129,13 @@ public class TextUIDlg : MonoBehaviour
         }
         else if (selection_Num == 3)
         {
-
+            m_selectionText_1.text = TextMgr.Inst.m_assetTexts[m_currentid].desc;
+            m_selectionTextSingle.text = TextMgr.Inst.m_assetTexts[m_currentid + 1].desc;
+            m_selectionText_2.text = TextMgr.Inst.m_assetTexts[m_currentid + 1].desc;
+            m_selectionText_1.gameObject.SetActive(true);
+            m_selectionText_2.gameObject.SetActive(true);
+            m_selectionTextSingle.gameObject.SetActive(true);
+            GameMgr.Inst.ginfo.m_lastSelection = m_currentid;
         }
         else if (selection_Num == 4)
         {
