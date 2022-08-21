@@ -2311,6 +2311,7 @@ MonoBehaviour:
   m_select2: {fileID: 361486720}
   m_selectSingle: {fileID: 461805093}
   m_endingScript: {fileID: 0}
+  NickName: {fileID: 823967000}
 --- !u!114 &1373001473
 MonoBehaviour:
   m_ObjectHideFlags: 0
