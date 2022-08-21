@@ -14,7 +14,12 @@ public class TextUIDlg : MonoBehaviour
     public Button m_select2;
     public Button m_selectSingle;
     public EndingScript m_endingScript = null;
+    public Text NickName = null;
 
+    public void Awake()
+    {
+        NickName.text = LobbySceneDlg.Nickname;
+    }
     public void Initialize()
     {
         m_select1.onClick.AddListener(OnClick_Select1);
@@ -109,6 +114,8 @@ public class TextUIDlg : MonoBehaviour
             m_selectSingle.interactable = false;
             GameMgr.Inst.ginfo.m_lastSelection = m_currentid;
         }
+        StartCoroutine("Delay");
+
     }
     
 
@@ -117,5 +124,16 @@ public class TextUIDlg : MonoBehaviour
     void Update()
     {
         
+    }
+
+    IEnumerator Delay()
+    {
+        m_select1.interactable = false;
+        m_select2.interactable = false;
+        m_selectSingle.interactable = false;
+        yield return new WaitForSeconds(1.0f);
+        m_select1.interactable = true;
+        m_select2.interactable = true;
+        m_selectSingle.interactable = true;
     }
 }
